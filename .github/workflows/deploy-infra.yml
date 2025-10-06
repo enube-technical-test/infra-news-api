@@ -29,7 +29,7 @@ jobs:
 
       - name: Terraform Init & Apply
         run: |
-          cd infra
+          cd terraform
           terraform init
           terraform apply -auto-approve -var="create_iam_role=false" -var="existing_execution_role_name=LabRole"
 
