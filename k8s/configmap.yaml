@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: news-api-config
+  namespace: news-api
+data:
+  APP_ENV: "production"
