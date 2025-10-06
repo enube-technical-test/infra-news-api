@@ -112,15 +112,12 @@ data "aws_iam_role" "existing_execution_role" {
 
 # --- EKS Cluster ---
 resource "aws_eks_cluster" "eks" {
-  name     = "${var.app_name}-eks"
-  role_arn = var.create_iam_role ? aws_iam_role.eks_service_role[0].arn : data.aws_iam_role.existing_execution_role[0].arn
+  name     = "${var.app_name}-cluster"
+  role_arn = data.aws_iam_role.existing_execution_role.arn
 
   vpc_config {
-    subnet_ids = [aws_subnet.public_1.id, aws_subnet.public_2.id]
-    endpoint_public_access = true
+    subnet_ids = module.vpc.public_subnets
   }
-
-  depends_on = var.create_iam_role ? [aws_iam_role_policy_attachment.eks_service_attach] : []
 }
 
 # --- Node group (EC2) ---
