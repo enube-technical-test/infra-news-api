@@ -5,7 +5,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - '**.tf'
+      - 'terraform/**.tf'
 
 jobs:
   deploy-infra:
@@ -29,5 +29,6 @@ jobs:
       - name: Terraform Init & Apply
         run: |
           cd terraform
+          rm -rf .terraform .terraform.lock.hcl terraform.tfstate terraform.tfstate.backup || true
           terraform init
-          terraform apply -auto-approve -var="create_iam_role=false" -var="existing_execution_role_name=LabRole"
+          terraform apply -auto-approve -input=false
