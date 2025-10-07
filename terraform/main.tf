@@ -57,7 +57,7 @@ resource "aws_security_group" "workers_sg" {
 resource "aws_eks_cluster" "eks" {
   name     = "${var.app_name}-cluster"
   role_arn = local.lab_role_arn
-  version  = "1.28"
+  version  = "1.30"
 
   vpc_config {
     subnet_ids         = data.aws_subnets.valid_for_eks.ids
