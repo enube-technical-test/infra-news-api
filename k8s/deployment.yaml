@@ -15,10 +15,13 @@ spec:
     spec:
       containers:
         - name: news-api
-          image: ECR_REPO_URL:latest   # reemplazar con la URL del repo ECR
+          image: 937171575739.dkr.ecr.us-east-1.amazonaws.com/backend-news-api:latest
           ports:
             - containerPort: 8000
           resources:
-            limits:
-              cpu: "500m"
+            requests:
               memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"

@@ -1,11 +1,11 @@
-name: Deploy Infra
+name: Deploy K8s
 
 on:
   workflow_dispatch:
   push:
     branches: [ main ]
     paths:
-      - '**.tf'
+      - 'k8s/**'
 
 jobs:
   deploy-infra:
@@ -20,14 +20,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: ${{ secrets.AWS_REGION }}
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.9.0
-
-      - name: Terraform Init & Apply
+       
+      - name: Update kubeconfig
         run: |
-          cd terraform
-          terraform init
-          terraform apply -auto-approve -var="create_iam_role=false" -var="existing_execution_role_name=LabRole"
+          aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
+
+      - name: Apply Kubernetes manifests
+        run: |
+          kubectl apply -f k8s/namespace.yaml
+          kubectl apply -f k8s/

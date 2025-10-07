@@ -3,7 +3,7 @@ output "vpc_id" {
 }
 
 output "subnet_ids" {
-  value = data.aws_subnets.default.ids
+  value = data.aws_subnets.valid_for_eks.ids
 }
 
 output "eks_cluster_name" {
