@@ -26,7 +26,7 @@ infra-news-api/
 
 ---
 
-## 🚀 Requisitos
+## Requisitos
 
 - **Terraform >= 1.8.0**
 - **AWS CLI** configurado con credenciales del Learner Lab
@@ -98,7 +98,7 @@ kubectl get svc -n news-api
 
 ---
 
-## 🔗 Integración con el backend
+## Integración con el backend
 
 El repositorio `backend-news-api`:
 
