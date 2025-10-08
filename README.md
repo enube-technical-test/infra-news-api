@@ -9,6 +9,19 @@ Implementado con:
 
 ---
 
+## Flujo general del proyecto
+
+El flujo completo para desplegar la aplicación consta de **cuatro etapas**, distribuidas entre este repositorio (infraestructura) y el del backend:
+
+| Etapa | Repositorio | Pipeline / Acción | Descripción |
+|--------|-------------|-------------------|--------------|
+| **1️** | `infra-news-api` | `Deploy Infra` | Crea en AWS la infraestructura base (EKS, ECR, VPC, SGs, etc.) |
+| **2️** | `backend-news-api` | `Build and Deploy to ECR` | Construye la imagen Docker del backend y la publica en el ECR creado en la etapa anterior |
+| **3️** | `infra-news-api` | `Deploy K8s` | Aplica los manifiestos Kubernetes (deployment, service, namespace) usando la imagen del ECR |
+| **4️** | `infra-news-api` | `Destroy Infra` | Destruye toda la infraestructura en AWS cuando ya no se necesite |
+
+---
+
 ## Estructura del proyecto
 
 ````
